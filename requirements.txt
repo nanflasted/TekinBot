@@ -1,0 +1,11 @@
+ipdb==0.10.3
+mysql-connector-python==8.0.5
+pre-commit==1.4.1
+pyramid==1.9.1
+pytest==3.3.1
+pyyaml==3.12
+sqlalchemy==1.1.15
+tenacity==4.7.1
+uwsgi==2.0.15
+wikipedia==1.4.0
+wiktionaryparser==0.0.4

@@ -4,25 +4,30 @@ Tekinbot is a simple and expandable slackbot that could serve great utility to y
 
 ## Preparation:
 
-0.  You need python3.6
+0.  You need python3.6, together with MySQL and SQLite
 
-1.  First of all, set up a python [virtual environment](https://docs.python.org/3/tutorial/venv.html)
+1.  First of all, set up a python [virtual environment](https://docs.python.org/3/tutorial/venv.html) by running `make venv`
 
-2.  Run `make dependency` to install all of the required packages, depending on your system you might have to run
-    `sudo make dependency` or `sudo -H make dependency`
+2.  Run `make install-hooks` to install pre-commit hooks
 
-3.  Run `make install-hooks` to install pre-commit hooks
-
-4.  `git checkout -b <your-branch-name>`, and hack away! I recommend using a meaningful branch name, and recommend using the format
+3.  `git checkout -b <your-branch-name>`, and hack away! 
+    For this repo, I recommend using a meaningful branch name, and recommend using the format
     `git checkout -b <github_username-issue_number-branch_name>`
 
-5.  Run `make dev` to make a local server instance so you could `curl` and test your changes
+4.  Run `make dev` to make a local server instance so you could `curl` and test your changes
+    note that the `make dev` instance runs with `--dry-run` and `--no-db` options, meaning that:
+    *   it does not send response requests, but instead prints all responses to stdout
+    *   it does not write to mysql database, but uses an in-memory sqlite instance instead
+    
+5.  After making your changes, `git push origin <your-branch-name>`, 
+    for this repo, let me know that your branch is ready to be merged
 
-6.  After making your changes, `git push origin <your-branch-name>`, and let me know that your branch is ready to be merged
+6.  (Optional) If you have a slack workspace to test it on"
+    *   run `make server` and set your request URL to `http://<your-tekin-url>:9338`, 
+    *   if you want another port, run `python -m tekinbot.tekin --port=<your-port>` instead of `make server`
+    *   You can then see your tekinbot addition in live action! EHHHHHHH!
 
-7.  After some review and testing, I will merge your branch into the master branch, and deploy it to the production tekinbot instance!
-
-8.  You can then see your tekinbot addition in live-action, EHHHHHHH!
+7.  You've dunnit! Remember what Tekin would say: take a 5 minute break, drink some water and wash your face...
 
 ## How to add a new module:
 

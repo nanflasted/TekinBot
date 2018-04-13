@@ -1,23 +1,28 @@
-.PHONY: all export dependency install-hooks server dev test
-#change it to your virtual env directory here
-VENV=~/env
+.PHONY: all
 
-all: server
+all: venv
 
-export:
-	export VENV=$(VENV)
+clean:
+	rm -f .activate.sh
+	rm -f .deactivate.sh
+	rm -rf ./venv
 
-dependency:
-	pip3 install -r requirements.txt
+venv:
+	python3 -m venv ./venv
+	echo "deactivate" > .deactivate.sh
+	chmod 700 .deactivate.sh
+	ln -s ./venv/bin/activate .activate.sh
+	./venv/bin/pip install -r requirements-dev.txt
 
-install-hooks: dependency
+install-hooks:
 	pre-commit install -f --install-hooks
 
-server: dependency install-hooks
+server: install-hooks
+	./venv/bin/pip install -r requirements.txt
 	python3 -m tekinbot.tekin
 
-dev: dependency install-hooks
-	python3 -m tekinbot.tekin
+dev: install-hooks
+	python3 -m tekinbot.tekin --dry-run --no-db
 
 test:
 	python3 -m pytest tests/

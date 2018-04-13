@@ -1,0 +1,12 @@
+ipython
+ipdb
+mysql-connector-python
+pre-commit
+pyramid
+pytest
+pyyaml
+sqlalchemy
+tenacity
+uwsgi
+wikipedia
+wiktionaryparser

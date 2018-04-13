@@ -2,8 +2,8 @@
 .activate.sh
 .deactivate.sh
 
-# private issue tracker
-issues.md
+# dev environment
+config/dev/
 
 # Byte-compiled / optimized / DLL files
 */__pycache__/

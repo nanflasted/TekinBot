@@ -52,3 +52,4 @@ def tekin_db_init(nodb=False):
     else:
         engine = get_engine()
     TekinTableBase.metadata.create_all(engine, checkfirst=True)
+    print('tekin database initialized')

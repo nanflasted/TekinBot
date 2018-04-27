@@ -24,7 +24,7 @@ def tekin_secrets(key_name):
     key_seq = key_name.split('.')
     v = tekin_secret_dict()
     for k in key_seq:
-        v.get(key_name)
+        v = v.get(k)
         if not v:
             return ''
     return v

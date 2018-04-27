@@ -6,4 +6,4 @@ sqlalchemy==1.1.15
 tenacity==4.7.1
 uwsgi==2.0.15
 wikipedia==1.4.0
-wiktionaryparser==0.0.4
+wiktionaryparser==0.0.5

@@ -39,7 +39,7 @@ def async_execute(req, dry_run=False):
     if dry_run:
         print(result)
     else:
-        comms.post(req, result, dry_run)
+        comms.post(req, result)
 
 
 def dry_main(request):

@@ -6,8 +6,6 @@ import yaml
 
 TEKIN_SECRET_FILE = os.path.expanduser('~/.tekin-secrets.yaml')
 
-tekin_id = '<@U12345678>'
-
 
 @functools.lru_cache()
 def tekin_secret_dict():
@@ -24,7 +22,10 @@ def tekin_secrets(key_name):
     key_seq = key_name.split('.')
     v = tekin_secret_dict()
     for k in key_seq:
-        v.get(key_name)
+        v = v.get(k)
         if not v:
             return ''
     return v
+
+
+tekin_id = tekin_secrets('slack.tekin_id')

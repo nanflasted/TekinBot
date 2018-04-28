@@ -19,7 +19,7 @@ install-hooks:
 
 server: install-hooks
 	./venv/bin/pip install -r requirements.txt
-	python3 -m tekinbot.tekin
+	./venv/bin/uwsgi --yaml config/tekin_uwsgi_conf.yaml
 
 dev: install-hooks
 	python3 -m tekinbot.tekin --dry-run --no-db

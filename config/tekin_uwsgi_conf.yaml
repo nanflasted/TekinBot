@@ -1,0 +1,8 @@
+uwsgi:
+    master: true
+    http: 0.0.0.0:9338
+    wsgi-file: ./tekinbot/tekin.py
+    callable: wsgi_app
+    threads: 2
+    pidfile: /tmp/tekinbot.pid
+    enable-threads: true

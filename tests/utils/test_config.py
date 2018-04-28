@@ -26,5 +26,4 @@ class TestTekinSecrets(object):
         assert tekin_secrets(key_name) == expected
 
     def test_tekin_secrets__invalid_key(self, mock_config):
-        with pytest.raises(KeyError):
-            tekin_secrets('you_shouldntake')
+        assert tekin_secrets('you_shouldntake') == ''

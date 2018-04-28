@@ -1,7 +1,6 @@
 import argparse
 import json
 import threading
-from wsgiref.simple_server import make_server
 
 from pyramid.config import Configurator
 from pyramid.response import Response
@@ -29,7 +28,7 @@ def tekin_args():
     )
     parser.add_argument(
         '--port', dest='port', type=int,
-        default=9338, help='the port which tekin listens to',
+        default=9340, help='the port which tekin listens to',
     )
     return parser.parse_args()
 
@@ -78,13 +77,20 @@ def main(request):
         print(str(e))
 
 
-if __name__ == '__main__':
-    args = tekin_args()
-    du.tekin_db_init(args.nodb)
+def create_application(dry_run=False, nodb=False):
+    du.tekin_db_init(nodb)
     with Configurator() as config:
         config.add_route('main', '/')
-        config.add_view(dry_main if args.dry_run else main, route_name='main')
-        app = config.make_wsgi_app()
+        config.add_view(dry_main if dry_run else main, route_name='main')
+        return config.make_wsgi_app()
 
+
+wsgi_app = create_application()
+
+
+if __name__ == '__main__':
+    args = tekin_args()
+    app = create_application(args.dry_run, args.nodb)
+    from wsgiref.simple_server import make_server
     server = make_server('0.0.0.0', args.port, app)
     server.serve_forever()

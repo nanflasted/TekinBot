@@ -43,8 +43,9 @@ def post_plain_text(request, resp, auth, channel=None):
 
 def deploy_view(request):
     new_commit = subprocess.check_output(['git', 'rev-parse', 'master'])
-    new_commit = new_commit.decode('utf-8')
-    new_commit_msg = subprocess.check_output(['git', 'log', '--pretty=%B'])
+    new_commit = new_commit.decode('utf-8').split('\n')[0]
+    new_commit_msg = subprocess.check_output(
+        ['git', 'log', '-1', '--pretty=%B'])
     new_commit_msg = new_commit_msg.decode('utf-8')
 
     deploy_channel = tekin_secrets('slack.deploy_channel')

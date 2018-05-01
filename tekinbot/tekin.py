@@ -7,6 +7,7 @@ from pyramid.response import Response
 
 import tekinbot.comms as comms
 import tekinbot.utils.db as du
+from tekinbot.utils.post import deploy_view
 
 
 def tekin_args():
@@ -82,6 +83,8 @@ def create_application(dry_run=False, nodb=False):
     with Configurator() as config:
         config.add_route('main', '/')
         config.add_view(dry_main if dry_run else main, route_name='main')
+        config.add_route('deploy', '/deploy')
+        config.add_view(deploy_view)
         return config.make_wsgi_app()
 
 

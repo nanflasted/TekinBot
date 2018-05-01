@@ -2,7 +2,7 @@ import json
 import subprocess
 
 import requests
-from pyramid.respose import Response
+from pyramid.response import Response
 
 from tekinbot.utils.config import tekin_secrets
 

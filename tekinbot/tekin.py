@@ -84,7 +84,7 @@ def create_application(dry_run=False, nodb=False):
         config.add_route('main', '/')
         config.add_view(dry_main if dry_run else main, route_name='main')
         config.add_route('deploy', '/deploy')
-        config.add_view(deploy_view)
+        config.add_view(deploy_view, route_name="deploy")
         return config.make_wsgi_app()
 
 

@@ -52,7 +52,7 @@ def deploy_view(request):
     if not deploy_channel:
         return Response('deploy channel not configured, deploy not announced')
     deploy_message = (
-        f'New commit new Tekin! '
+        f'New commit new :tekin:! \n'
         f'A new version (SHA: {new_commit}) of TekinBot was just deployed! \n'
         f'The new version consists of the following changes: \n'
         f'{new_commit_msg}'

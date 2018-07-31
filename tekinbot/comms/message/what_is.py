@@ -8,7 +8,7 @@ import tekinbot.utils.post as pu
 from tekinbot.utils.config import tekin_id
 
 
-comm_re = re.compile(f'^{tekin_id} what is (?P<message>.*)$', re.IGNORECASE)
+comm_re = re.compile(f'^{tekin_id} (what|who) is (?P<message>.*)$', re.IGNORECASE)
 
 
 @functools.lru_cache()

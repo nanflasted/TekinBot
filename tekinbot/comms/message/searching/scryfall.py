@@ -14,6 +14,7 @@ comm_re = re.compile(
 
 
 link_stem = 'https://api.scryfall.com/cards/named'
+tekin_planeswalker = 'https://i.imgur.com/9agLW68.png'
 
 
 def search(query, exact):
@@ -23,7 +24,11 @@ def search(query, exact):
     )
 
     if search_resp.status_code == 404:
-        return 'Can\'t find the said card, maybe try again?'
+        return (
+            'Can\'t find the said card, or there are multiple matches. '
+            'Try to be more precise. Anyway, here is me in the Multiverse: '
+            f'{tekin_planeswalker}'
+        )
     elif not search_resp.ok:
         return 'I can\'t into internetz'
 

@@ -31,7 +31,7 @@ def search(query, exact):
         resp = search_resp.json()
         return (
             f'I did a scry 1 and found {resp["name"]} based on the search '
-            'query:\n{resp["image_uris"]["large"]}. Try to be more '
+            f'query:\n{resp["image_uris"]["large"]}. Try to be more '
             'precise if this is not it.'
         )
     except Exception:
@@ -39,6 +39,7 @@ def search(query, exact):
 
 
 def process(request):
+    print('called')
     match = re.fullmatch(comm_re, request['event']['text'])
     query = match.group('query')
     exact = bool(match.group('exact'))

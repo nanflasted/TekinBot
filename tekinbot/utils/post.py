@@ -41,6 +41,21 @@ def post_plain_text(request, resp, auth, channel=None):
     return post_resp
 
 
+def post_formatted_text(request, resp, auth, channel=None):
+    headers = json_header(auth)
+    content = {
+        'channel': channel or request['event']['channel'],
+        'as_user': False,
+    }
+    content.update(**resp)
+    post_resp = requests.post(
+        'https://slack.com/api/chat.postMessage',
+        headers=headers,
+        data=json.dumps(content),
+    )
+    return post_resp
+
+
 def deploy_view(request):
     new_commit = subprocess.check_output(['git', 'rev-parse', 'master'])
     new_commit = new_commit.decode('utf-8').split('\n')[0]

@@ -16,6 +16,15 @@ comm_re = re.compile(
 
 link_stem = 'https://api.scryfall.com/cards/named'
 tekin_planeswalker = 'https://i.imgur.com/9agLW68.png'
+scryfall_favicon = 'https://assets.scryfall.com/favicon.ico'
+mtg_colours = {
+    'W': '#F8E7B9',
+    'U': '#B3CEEA',
+    'B': '#A69F9D',
+    'R': '#EA9F82',
+    'G': '#C4D3CA',
+    'C': '#FFFFFF',
+}
 
 
 def search(query, exact):
@@ -25,24 +34,57 @@ def search(query, exact):
     )
 
     if search_resp.status_code == 404:
-        return (
+        return {'text': (
             'Can\'t find the said card, or there are multiple matches. '
             'Try to be more precise. Anyway, here is me in the Multiverse: '
             f'{tekin_planeswalker}'
-        )
+        )}
     elif not search_resp.ok:
-        return 'I can\'t into internetz'
+        return {'text': 'I can\'t into internetz'}
 
     try:
         resp = search_resp.json()
-        return (
+
+        text = (
             f'I did a scry 1 and found {resp["name"]} based on the search '
-            f'query:\n{resp["image_uris"]["large"]}. Try to be more '
+            f'query:\n{resp["image_uris"]["normal"]}.\nTry to be more '
             'precise if this is not it.'
         )
+
+        attachment = {
+            'fallback': text,
+            'author_name': 'Scryfall:TM: brought to you by Tekin',
+            'author_link': f'{resp["scryfall_uri"]}',
+            'author_icon': f'{scryfall_favicon}',
+            'pretext': f'I did a scry 1 and found {resp["name"]}',
+            'image_url': (
+                '{url}'.format(url=resp["image_uris"]["normal"])
+            ) if resp["layout"] != "transform" else (
+                '\n'.join([
+                    face['image_uris']['normal'] for face in resp['card_faces']
+                ])
+            ),
+            'color': mtg_colours[resp.get('color_identity', 'C')],
+            'fields': [
+                {'title': 'Name', 'value': f'{resp["name"]}', 'short': True},
+                {'title': 'Mana',
+                    'value': f'{resp["mana_cost"]}', 'short': True},
+                {'title': 'Type Line',
+                    'value': f'{resp["type_line"]}', 'short': True},
+                {'title': 'Set', 'value': f'{resp["set"]}', 'short': True},
+                {'title': 'Text', 'value': '{}'.format(
+                    resp['oracle_text'] if resp['layout'] == 'normal' else (
+                        '\n'.join([face['oracle_text']
+                                   for face in resp['card_faces']])
+                    )
+                )}
+            ]
+        }
+        return {'attachments': [attachment]}
+
     except Exception as e:
         print(e)
-        return 'Can\'t find the said card.'
+        return {'text': 'Can\'t find the said card.'}
 
 
 def process(request):
@@ -51,10 +93,10 @@ def process(request):
     exact = bool(match.group('exact') or match.group('exact_bk'))
 
     if not query:
-        return 'What exactly are you looking for?'
+        return {'text': 'What exactly are you looking for?'}
 
     return search(query, exact)
 
 
 def post(request, resp):
-    return pu.post_plain_text(request, resp, auth=pu.bot_auth())
+    return pu.post_formatted_text(request, resp, auth=pu.bot_auth())

@@ -29,6 +29,8 @@ class TestYoutube(object):
         (f'{tekin_id} mtg: something', True),
         (f'{tekin_id} mtg:something', True),
         (f'{tekin_id} mtg exactly: something', True),
+        (f'[[something]]', True),
+        (f'something [[something]] else', True),
     ])
     def test_comm_re(self, text, match):
         assert bool(re.fullmatch(
@@ -39,6 +41,9 @@ class TestYoutube(object):
     @pytest.mark.parametrize('text, query, exact', [
         (f'{tekin_id} mtg me something', 'something', False),
         (f'{tekin_id} mtg me exactly something', 'something', True),
+        (f'[[!something]]', 'something', True),
+        (f'some [[!something]] thing else', 'something', True),
+        (f'some [[something]] thing else', 'something', False),
     ])
     def test_process(
         self, text, query, exact,

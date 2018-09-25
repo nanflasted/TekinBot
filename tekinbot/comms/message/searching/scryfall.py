@@ -7,8 +7,9 @@ from tekinbot.utils.config import tekin_id
 
 
 comm_re = re.compile(
-    f'^{tekin_id} :?(mtg me|mtg)'
-    f'(?P<exact> exactly|)(: |:| )(?P<query>.*)$',
+    f'(^{tekin_id} :?(mtg me|mtg)'
+    f'(?P<exact> exactly|)(: |:| )(?P<query>.*)$|'
+    f'^.*\[\[(?P<exact_bk>!)?(?P<query_bk>.*)\]\].*$)',
     flags=re.IGNORECASE
 )
 
@@ -39,15 +40,15 @@ def search(query, exact):
             f'query:\n{resp["image_uris"]["large"]}. Try to be more '
             'precise if this is not it.'
         )
-    except Exception:
+    except Exception as e:
+        print(e)
         return 'Can\'t find the said card.'
 
 
 def process(request):
-    print('called')
     match = re.fullmatch(comm_re, request['event']['text'])
-    query = match.group('query')
-    exact = bool(match.group('exact'))
+    query = match.group('query') or match.group('query_bk')
+    exact = bool(match.group('exact') or match.group('exact_bk'))
 
     if not query:
         return 'What exactly are you looking for?'

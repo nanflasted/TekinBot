@@ -28,7 +28,6 @@ def process(request):
     # return responses, in tuples: (regex_obj, response)
     # responses are always in a list, if empty list, no response
     resps = []
-    print(comms_dict.keys())
     for r in comms_dict:
         try:
             if re.match(r, request['event']['text']):

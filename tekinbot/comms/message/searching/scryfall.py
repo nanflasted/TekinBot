@@ -51,6 +51,9 @@ def search(query, exact):
             'precise if this is not it.'
         )
 
+        colour = resp.get('color_identity')
+        colour = 'C' if not colour else colour[0]
+
         attachment = {
             'fallback': text,
             'author_name': 'Scryfall:TM: brought to you by Tekin',
@@ -64,11 +67,14 @@ def search(query, exact):
                     face['image_uris']['normal'] for face in resp['card_faces']
                 ])
             ),
-            'color': mtg_colours[resp.get('color_identity', 'C')],
+            'color': mtg_colours[colour],
             'fields': [
                 {'title': 'Name', 'value': f'{resp["name"]}', 'short': True},
-                {'title': 'Mana',
-                    'value': f'{resp["mana_cost"]}', 'short': True},
+                {'title': 'Mana', 'value': '{}'.format(
+                    resp["mana_cost"] if resp['layout'] != 'transform' else (
+                        ' // '.join([face['mana_cost']
+                                     for face in resp['card_faces']])
+                    )), 'short': True},
                 {'title': 'Type Line',
                     'value': f'{resp["type_line"]}', 'short': True},
                 {'title': 'Set', 'value': f'{resp["set"]}', 'short': True},

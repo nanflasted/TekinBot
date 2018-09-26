@@ -47,7 +47,7 @@ def search(query, exact):
 
         text = (
             f'I did a scry 1 and found {resp["name"]} based on the search '
-            f'query:\n{resp["image_uris"]["normal"]}.\nTry to be more '
+            f'query:\n{resp["scryfall_uri"]}.\nTry to be more '
             'precise if this is not it.'
         )
 

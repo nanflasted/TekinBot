@@ -11,6 +11,7 @@ __all__ = [
     'what_is',
     'searching.youtube', 'searching.pic', 'searching.scryfall',
     'karma.inc', 'karma.check',
+    'storytime.storytime',
     'theme.theme', 'theme.check', 'theme.refute',
 ]
 

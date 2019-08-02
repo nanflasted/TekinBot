@@ -1,6 +1,7 @@
 ipython
 ipdb
 mysql-connector-python
+markovify
 pre-commit
 pyramid
 pytest

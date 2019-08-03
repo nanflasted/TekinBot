@@ -7,3 +7,4 @@ tenacity==4.7.1
 uwsgi==2.0.15
 wikipedia==1.4.0
 wiktionaryparser==0.0.5
+markovify==0.7.2

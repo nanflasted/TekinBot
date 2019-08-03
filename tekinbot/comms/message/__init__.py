@@ -13,6 +13,7 @@ __all__ = [
     'karma.inc', 'karma.check',
     'storytime.storytime',
     'theme.theme', 'theme.check', 'theme.refute',
+    'what_say.what_say', 'what_say.remember',
 ]
 
 

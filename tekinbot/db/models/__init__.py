@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 __all__ = [
     'karma',
+    'what_say',
 ]
 
 tables = {}

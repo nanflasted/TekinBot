@@ -7,7 +7,7 @@ import markovify
 import tekinbot.utils.post as pu
 from tekinbot.utils.config import tekin_id
 
-comm_re = re.compile(f'{tekin_id}.*tell.*a story', flags=re.IGNORECASE)
+comm_re = re.compile(f'{tekin_id}.*tell.*a story.*', flags=re.IGNORECASE)
 ALL_CHARS = ["@nomworthy", "@jhoak", "@logan_w",
              "@nanflasted", "@nomworthy", "@TekinBot"]
 

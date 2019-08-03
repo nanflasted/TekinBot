@@ -18,6 +18,7 @@ def process(request):
     return resp_tmpl.format(un, 0, 0) if not qres.count() else (
         resp_tmpl.format(un, qres.value('received'), qres.value('sent'))
     )
+    sesh.close()
 
 
 def post(request, resp):

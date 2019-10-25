@@ -15,6 +15,8 @@ def process(request):
 
     if num_ch > 0:
       chosen = choices[random.randInt(num_ch)].strip()
+      if chosen[:3] == "or ":
+        chosen = chosen[3:].strip()
       return f'I am {100/num_ch + max([random.randint(0, 100-(100/num_ch)) for i in range(num_ch)])}% sure you should choose {chosen}.'
 
     else:

@@ -8,6 +8,7 @@ __all__ = [
     'echo',
     'foaas',
     'roll',
+    'choose',
     'what_is',
     'searching.youtube', 'searching.pic', 'searching.scryfall',
     'karma.inc', 'karma.check',

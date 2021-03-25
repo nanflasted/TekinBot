@@ -1,7 +1,7 @@
 mysql-connector-python==8.0.5
 pyramid==1.9.1
 pytest==3.3.1
-pyyaml==3.12
+pyyaml==5.4
 sqlalchemy==1.1.15
 tenacity==4.7.1
 uwsgi==2.0.15

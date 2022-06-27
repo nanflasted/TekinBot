@@ -1,4 +1,4 @@
-mysql-connector-python==8.0.5
+mysql-connector-python==8.0.14
 pyramid==1.9.1
 pytest==3.3.1
 pyyaml==3.12
